@@ -61,8 +61,30 @@
         </div>
     </div>
 </div>
-
 <!--END MODAL CREATE-->
+<!--START MODAL CONFIRM DELETE-->
+@*<div class="modal fade" id="modalDelete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Cuenta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group col-12">
+                    <p>¿Está seguro de eliminar esta cuenta?</p>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="/account/delete?id=@acc.Id" class="btn btn-success" style="margin:1rem 0rem">Confirmar</a>
+                <a class="btn btn-danger" data-bs-dismiss="modal" href="/account">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>*@
+<!--END MODAL DELETE-->
+
+
 <div class="container-fluid px-4">
     <h2 class="mt-4 fst-italic text-center">Cuentas</h2>
     <div class="justify-content-end">
@@ -107,11 +129,11 @@
                     @{
                         foreach (var item in accounts)
                         {
-                            <tr class="text-center">
+                            <tr>
                                 <td>
                                     <div style="width:8rem;">
-                                        <img class="img-fluid" src="@item.ImagePath" alt="Imagen de la cuenta"/>
-                                    </div> 
+                                        <img class="img-fluid" src="@item.ImagePath" alt="Imagen de la cuenta" />
+                                    </div>
                                 </td>
                                 <td>@item.Type.Nombre</td>
                                 <td>@item.Name</td>

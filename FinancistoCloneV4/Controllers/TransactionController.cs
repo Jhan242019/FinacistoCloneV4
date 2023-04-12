@@ -1,4 +1,6 @@
-﻿using FinancistoCloneV4.Models;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using FinancistoCloneV4.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -95,7 +97,6 @@ namespace FinancistoCloneV4.Controllers
         }
 
         //PDF
-        //[HttpGet]
         public IActionResult PDF(int cuentaId)
         {
             var transactions = context.Transactions
@@ -104,7 +105,7 @@ namespace FinancistoCloneV4.Controllers
                 .OrderByDescending(o => o.FechaHora)
                 .ToList();
 
-            ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId); ;
+            ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
 
             //return View("PDF", transactions);
             return new ViewAsPdf("PDF", transactions)
@@ -114,6 +115,23 @@ namespace FinancistoCloneV4.Controllers
                 //PageSize = Rotativa.AspNetCore.Options.Size.A4
             };
         }
+
+        //Reporte en Excel
+        public IActionResult ReporteExcel(int cuentaId)
+        {
+
+            DataTable tabla_transaction = new DataTable();
+
+            //ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
+
+            //using (var libro = new XLWorkbook()) {
+            //    tabla_transaction.TableName = "";
+            //    var hoja = libro.Worksheets.Add(tabla_transaction);
+            //}
+
+            return View();
+        }
+
 
         private void UpdateAmountAccount(int cuentaId)
         {
