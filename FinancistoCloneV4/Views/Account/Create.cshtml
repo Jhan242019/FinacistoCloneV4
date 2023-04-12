@@ -1,0 +1,150 @@
+﻿@{
+    var account = (Account)Model;
+    var type = (List<Types>)ViewBag.Types;
+}
+<div class="">
+    <h2 class="text-center">Cuentas</h2>
+</div>
+
+<a href="/account/create" class="btn btn-success" style="margin:1rem 0rem" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="fas fa-plus-circle"></i>
+    Crear Cuenta
+</a>
+
+<!--START MODAL CREATE-->
+<div class="modal fade" id="exampleModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form action="/account/create" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Cuenta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 p-2">
+                        <img src="~/files/imageAccount.png" id="imgImage" width="250rem" />
+                    </div>
+                    <div class="input-group col-12">
+                        <input type="file" class="form-control" id="inputImage" name="Image">
+                        <label class="input-group-text" for="inputGroupFile02">Imagen</label>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Tipo</label>
+                        <select name="TypeId" class="form-select" required>
+                            <option value="">-- Seleccione un tipo --</option>
+                            @foreach (var item in type)
+                            {
+                                <option value="@item.Id">@item.Nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Nombre</label>
+                        <input class="form-control" name="Name" value="@account.Name" required/>
+                        <div class="alert-danger">@Html.ValidationMessage("Name1")</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Divisa</label>
+                        <select class="form-control" name="Currency">
+                            <option value="Soles">Soles</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Saldo Inicial</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">S/.</span>
+                            <input type="number" class="form-control" name="Amount" value="@account.Amount" >
+                            <span class="input-group-text">.00</span>
+                        </div>
+                        @Html.ValidationMessage("Amount")
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" style="margin:1rem 0rem">Guardar</button>
+                    <a class="btn btn-danger" data-bs-dismiss="modal" href="/account">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const image = document.getElementById("imgImage");
+    const input = document.getElementById("inputImage");
+
+    input.addEventListener("change", () => {
+        image.src = URL.createObjectURL(input.files[0]);
+    });
+</script>
+
+@section Scripts {
+    <partial name="_validationScriptsPartial" />
+}
+
+<!--END MODAL CREATE-->
+
+
+
+
+
+@*<h2 class="text-center">Crear Cuenta</h2>*@
+
+
+@*<form class="row" action="/account/create" enctype="multipart/form-data" method="post">
+    <div class="col-12 p-2">
+        <img src="~/files/imageAccount.png" id="imgImage" width="250rem" />
+    </div>
+    <div class="input-group col-12">
+        <input type="file" class="form-control" id="inputImage" name="Image">
+        <label class="input-group-text" for="inputGroupFile02">Imagen</label>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Tipo</label>
+        <select name="TypeId" class="form-select">
+            <option value="">-- Seleccione un tipo --</option>
+            @foreach (var item in type)
+            {
+                <option value="@item.Id">@item.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" name="Name" />
+        <div class="alert-danger">@Html.ValidationMessage("Name1")</div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Divisa</label>
+        <select class="form-control" name="Currency">
+            <option value="Soles">Soles</option>
+        </select>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Saldo Inicial</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">S/.</span>
+            <input type="number" class="form-control" name="Amount" value="@account.Amount" ">
+            <span class="input-group-text">.00</span>
+        </div>
+        @Html.ValidationMessage("Amount")
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem">Guardar</button>
+        <a class="btn btn-danger" href="/account">Cancelar</a>
+    </div>
+</form>
+<script>
+    const image = document.getElementById("imgImage");
+    const input = document.getElementById("inputImage");
+
+    input.addEventListener("change", () => {
+        image.src = URL.createObjectURL(input.files[0]);
+    });
+</script>*@

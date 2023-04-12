@@ -1,0 +1,65 @@
+﻿@{
+    var transaction = (Transaction)Model;
+    var account = (Account)ViewBag.Account;
+}
+
+<h2 class="text-center">Editar Transacción - <span class="text-info">@account.Name</span></h2>
+
+<div class="col-12 m-3">
+    <p class="text-center">Saldo: <span class="@(account.Amount < 0 ? "text-danger":"text-success")">S/. @account.Amount</span></p>
+</div>
+
+<form class="row" action="/transaction/transaction_edit" method="post">
+
+    <input type="hidden" name="Id" value="@transaction.Id" />
+    <input type="hidden" name="CuentaId" value="@account.Id" />
+
+    <div class="col-12">
+        <label class="form-label">Tipo</label>
+        <select name="Tipo" class="form-control" required>
+            @foreach (var item in ViewBag.TipoTransaccion)
+            {
+                if (transaction.Tipo == item)
+                {
+                    <option value="@transaction.Tipo" selected>@transaction.Tipo</option>
+                }
+                else
+                {
+                    <option value="@item">@item</option>
+                }
+            }
+
+        </select>
+        <div class="text-danger">
+            @Html.ValidationMessage("Tipo")
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Fecha</label>
+        <input type="datetime-local" class="form-control" name="FechaHora" value="@transaction.FechaHora.ToString("yyyy-MM-dd HH:mm")" required />
+    </div>
+    <div class="col-12">
+        <label class="form-label">Motivo</label>
+        <input type="text" class="form-control" name="Motivo" value="@transaction.Motivo" />
+        <div class="text-danger">
+            @Html.ValidationMessage("Motivo")
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Monto</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">S/.</span>
+            <input type="number" class="form-control" name="Monto" value="@string.Format("{0:N2}", Math.Abs((decimal)transaction.Monto))">
+            <span class="input-group-text">.00</span>
+        </div>
+        <div class="text-danger">
+            @Html.ValidationMessage("Monto1")
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem">Guardar</button>
+        <a class="btn btn-danger" href="/transaction/transactions?cuentaId=@account.Id">Cancelar</a>
+    </div>
+</form>

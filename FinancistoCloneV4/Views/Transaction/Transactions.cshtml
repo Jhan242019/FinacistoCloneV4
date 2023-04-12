@@ -1,0 +1,105 @@
+﻿@{
+    var transaction = (List<Transaction>)Model;
+    var account = (Account)ViewBag.Account;
+}
+<div class="container-fluid px-4">
+    <h2 class="mt-4 fst-italic text-center">Transacciones - <span class="text-info">@account.Name</span></h2>
+    <div class="justify-content-end">
+        <p class="m-3 float-end">Saldo: <span class="@(account.Amount > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.Amount) </span></p>
+        @if (account.TypeId == 3)
+        {
+            <p class="m-3 float-end">Límite de Saldo: <span class="@(account.CreditLimit > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
+        }
+    </div>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">
+            <a href="/transaction/transaction_create?cuentaId=@account.Id" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i>
+                Crear Transacción
+            </a>
+            <a href="/account/index" class="btn btn-outline-info">
+                <i class="fas fa-reply-all"></i> Ir a cuentas
+            </a>
+            <a href="/transaction/pdf?cuentaId=@account.Id" class="btn btn-outline-danger" target="_blank">
+                <i class="fas fa-file-pdf"></i> PDF
+            </a>
+            <a href="/transaction/createpdf?cuentaId=@account.Id" class="btn btn-outline-success">
+                <i class="fas fa-file-excel"></i> Excel
+            </a>
+        </li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Transacciones
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple" class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Motivo</th>
+                        <th>Monto</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in transaction)
+                        {
+                            <tr>
+                                @if (item.Tipo == "Gasto")
+                                {
+                                    <td>
+                                        <span class="text-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                            </svg>
+                                            @item.Tipo
+                                        </span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <span class="text-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                                            </svg>
+                                            @item.Tipo
+                                        </span>
+                                    </td>
+                                }
+                                <td>@item.FechaHora.ToString("hh:mm tt - ddd dd MMM yyyy")</td>
+                                <td>@item.Motivo</td>
+                                <td class="@(item.Tipo == "Gasto" ? "text-danger" : "text-success")">
+                                    @String.Format("{0} {1:N2}","S/.", item.Monto)
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-success" href="/transaction/transaction_edit?id=@item.Id">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<table class="table table-dark table-striped">
+</table>

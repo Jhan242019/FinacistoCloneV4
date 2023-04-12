@@ -1,0 +1,58 @@
+﻿@{
+    var account = (Account)Model;
+}
+<h1>Editar Cuenta</h1>
+
+<form class="row" action="/account/edit" enctype="multipart/form-data" method="post">
+
+    <input type="hidden" name="Id" value="@account.Id" />
+    <input type="hidden" name="UserId" value="@account.UserId" />
+    <input type="hidden" name="ImagePath" value="@account.ImagePath" />
+    <input type="hidden" name="CreditLimit" value="@account.CreditLimit" />
+
+    <div class="col-12 p-2">
+        <img src="@account.ImagePath" width="250rem" class="p-2" />
+    </div>
+    <div class="input-group col-12">
+        <input type="file" class="form-control" name="Image">
+        <label class="input-group-text" for="inputGroupFile02">Imagen</label>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Tipo</label>
+        <select name="TypeId" class="form-control">
+            @foreach (var item in ViewBag.Types)
+            {
+                if (account.TypeId == item.Id)
+                {
+                    <option value="@item.Id" selected>@item.Nombre</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Nombre</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" name="Name" value="@account.Name" />
+        <div class="alert-danger">@Html.ValidationMessage("Name1")</div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Divisa</label>
+        <select class="form-control" name="Currency">
+            <option value="Soles">Soles</option>
+        </select>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Saldo Inicial</label>
+        <input type="number" class="form-control" name="Amount" value="@account.Amount" readonly />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem;">Guardar</button>
+        <a class="btn btn-danger" href="/account">Cancelar</a>
+    </div>
+</form>
