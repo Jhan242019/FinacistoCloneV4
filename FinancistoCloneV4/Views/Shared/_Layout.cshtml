@@ -42,7 +42,10 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i>Login</a>
+                                <a class="nav-link text-dark btn btn-outline-success" style="margin: 0px .5rem" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark btn btn-outline-info" asp-area="" asp-controller="Auth" asp-action="Create"><i class="fas fa-user-plus"></i> Register</a>
                             </li>
                         }
                         else
@@ -68,6 +71,10 @@
             &copy; 2023 - FinancistoCloneV4 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <!--Sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/account.js"></script>
+    <!--End Sweetalerts-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

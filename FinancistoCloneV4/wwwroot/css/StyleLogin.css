@@ -1,0 +1,59 @@
+﻿.login-form {
+    /*background-image: url(../img/fontLogin2.jpg);*/
+    width: 100%;
+    margin: 50px 10px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 2px 15px rgb(128, 128, 128);
+}
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 35vh;
+}
+
+.container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+}
+
+@media (max-width: 475px) 
+{
+    .container {
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px 0 15px;
+    }
+}
+@media (max-width: 375px) {
+    .container {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px 0 15px;
+    }
+}
+
+.reg {
+    text-decoration: none;
+}
+
+.img {
+    width : 120px;
+    height: 120px;
+    border-radius: 50%; 
+    text-align:center;  
+}
+.botonLogin {
+    width: 33%;
+    text-align: center;
+    margin: 1rem 0rem;
+}

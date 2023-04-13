@@ -1,15 +1,26 @@
-﻿<form action="/auth/create" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <input type="text" class="form-control " name="Username" placeholder="User">
+﻿<link href="~/css/StyleLogin.css" rel="stylesheet">
+
+<form action="/auth/create" method="post" enctype="multipart/form-data">
+    <div class="login-form">
+        <div class="box">
+            <div class="container">
+                <div class="p-2" style="text-align:center;">
+                    <img src="/img/user2.png" class="img" accept="image/x-png,image/gif,image/jpeg">
+                </div>
+                <div class="mb-3" style="padding-top: 1rem">
+                    <input type="text" class="form-control " name="Username" placeholder="User">
+                </div>
+                <div class="mb-3 text-danger">@Html.ValidationMessage("Username")</div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                </div>
+                <div class="mb-3 text-danger">@Html.ValidationMessage("Password")</div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
+                </div>
+                <div class="mb-3 text-danger">@Html.ValidationMessage("ConfirmPass")</div>
+                <button onclick="regisUser()" class="btn btn-success botonLogin"><i class="fas fa-user-plus"></i> Register</button>
+            </div>
+        </div>
     </div>
-    <div class="mb-3 text-danger">@Html.ValidationMessage("Username")</div>
-    <div class="mb-3">
-        <input type="password" class="form-control" name="Password" placeholder="Password">
-    </div>
-    <div class="mb-3 text-danger">@Html.ValidationMessage("Password")</div>
-    <div class="mb-3">
-        <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
-    </div>
-    <div class="mb-3 text-danger">@Html.ValidationMessage("ConfirmPass")</div>
-    <button class="btn btn-success">Register</button>
 </form>

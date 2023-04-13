@@ -158,7 +158,7 @@
                                         </svg>
                                     </a>
                                     <a class="btn btn-outline-success" href="/account/edit?id=@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                    <a class="btn btn-outline-danger" href="/account/delete?id=@item.Id"><i class="far fa-trash-alt"></i></a>
+                                    <button class="btn btn-outline-danger" onclick="deleteAccount(@item.Id)"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         }
@@ -176,8 +176,3 @@
         image.src = URL.createObjectURL(input.files[0]);
     });
 </script>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    @*<script src="~/js/account.js"></script>*@
-}
