@@ -1,6 +1,7 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Extensions.Localization;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using RequiredAttribute = System.ComponentModel.DataAnnotations.RequiredAttribute;
 
 namespace FinancistoCloneV4.Models
 {
@@ -9,7 +10,7 @@ namespace FinancistoCloneV4.Models
         public int Id { get; set; }
         [Required]
         public int TypeId { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Este Campo es Obligatorio")]
         public string Name { get; set; }
         public string Currency { get; set; }
         [Required]

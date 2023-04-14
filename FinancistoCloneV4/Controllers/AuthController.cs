@@ -28,17 +28,17 @@ namespace FinancistoCloneV4.Controllers
         {
             user.Password = CreateHash(user.Password);
 
-            var users = context.Users;
+            var users = context.Users.ToList();
 
             foreach (var item in users)
             {
                 if (item.Username == user.Username)
-                    ModelState.AddModelError("Username", "Usuario ya existe");
+                    ModelState.AddModelError("Username1", "Usuario ya existe");
             }
 
             if (user.Password != CreateHash(ConfirmPassword))
             {
-                ModelState.AddModelError("ConfirmPass", "Las contraseñas no coinciden");
+                ModelState.AddModelError("ConfirmPass1", "Las contraseñas no coinciden");
             }
 
             if (ModelState.IsValid)
@@ -47,6 +47,8 @@ namespace FinancistoCloneV4.Controllers
                 context.SaveChanges();
                 return RedirectToAction("Login", "Auth");
             }
+
+
             return View("Create", user);
         }
 

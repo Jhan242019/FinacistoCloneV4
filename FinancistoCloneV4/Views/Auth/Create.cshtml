@@ -7,14 +7,16 @@
                 <div class="p-2" style="text-align:center;">
                     <img src="/img/user2.png" class="img" accept="image/x-png,image/gif,image/jpeg">
                 </div>
-                <div class="mb-3" style="padding-top: 1rem">
+                <div class="mb-3">
                     <input type="text" class="form-control " name="Username" placeholder="User">
                 </div>
                 <div class="mb-3 text-danger">@Html.ValidationMessage("Username")</div>
+                <div class="mb-3 text-danger">@Html.ValidationMessage("Username1")</div>
                 <div class="mb-3">
                     <input type="password" class="form-control" name="Password" placeholder="Password">
                 </div>
                 <div class="mb-3 text-danger">@Html.ValidationMessage("Password")</div>
+                <div class="mb-3 text-danger">@Html.ValidationMessage("Password1")</div>
                 <div class="mb-3">
                     <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
                 </div>

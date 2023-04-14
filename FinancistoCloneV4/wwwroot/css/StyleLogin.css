@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 35vh;
+    min-height: 20vh;
 }
 
 .container {
@@ -47,10 +47,12 @@
 }
 
 .img {
-    width : 120px;
+    margin-top: -50px;
+    margin-bottom: 35px;
+    width: 120px;
     height: 120px;
-    border-radius: 50%; 
-    text-align:center;  
+    border-radius: 50%;
+    text-align: center;
 }
 .botonLogin {
     width: 33%;

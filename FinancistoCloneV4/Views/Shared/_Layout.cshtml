@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FinancistoCloneV4.styles.css" asp-append-version="true" />
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/fontLogin2.jpg">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -42,7 +45,7 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-outline-success" style="margin: 0px .5rem" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Login</a>
+                                <a class="nav-link text-dark btn btn-outline-success" style="margin: 0px .5rem" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Log in</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark btn btn-outline-info" asp-area="" asp-controller="Auth" asp-action="Create"><i class="fas fa-user-plus"></i> Register</a>
@@ -50,11 +53,18 @@
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-outline-danger" asp-area="" asp-controller="Auth" asp-action="Logout"><i class="bi bi-power"></i> @User.Claims.FirstOrDefault().Value</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-tie"></i> @User.Claims.FirstOrDefault().Value
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog"></i> Ajustes</a></li>
+                                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" asp-controller="Auth" asp-action="Logout"><i class="fas fa-power-off"></i> Log out</a></li>
+                                </ul>
                             </li>
                         }
-
                     </ul>
                 </div>
             </div>

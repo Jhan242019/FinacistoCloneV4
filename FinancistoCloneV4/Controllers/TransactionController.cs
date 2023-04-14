@@ -110,9 +110,9 @@ namespace FinancistoCloneV4.Controllers
             //return View("PDF", transactions);
             return new ViewAsPdf("PDF", transactions)
             {
-                //FileName = $"Transactiones - {ViewBag.Account.Name}.pdf",
-                //PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                //PageSize = Rotativa.AspNetCore.Options.Size.A4
+                FileName = $"Transactiones - {ViewBag.Account.Name}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
             };
         }
 
