@@ -1,6 +1,7 @@
 ﻿using FinancistoCloneV4.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -26,30 +27,36 @@ namespace FinancistoCloneV4.Controllers
         [HttpPost]
         public IActionResult Create(User user, string ConfirmPassword)
         {
-            user.Password = CreateHash(user.Password);
+            try {
+                user.Password = CreateHash(user.Password);
 
-            var users = context.Users.ToList();
+                var users = context.Users.ToList();
 
-            foreach (var item in users)
-            {
-                if (item.Username == user.Username)
-                    ModelState.AddModelError("Username1", "Usuario ya existe");
+                foreach (var item in users)
+                {
+                    if (item.Username == user.Username)
+                        ModelState.AddModelError("Username1", "Usuario ya existe");
+                }
+
+                if (user.Password != CreateHash(ConfirmPassword))
+                {
+                    ModelState.AddModelError("ConfirmPass", "Las contraseñas no coinciden");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    return RedirectToAction("Login", "Auth");
+                }
+
+                return View("Create", user);
+
             }
-
-            if (user.Password != CreateHash(ConfirmPassword))
+            catch (Exception)
             {
-                ModelState.AddModelError("ConfirmPass1", "Las contraseñas no coinciden");
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
-
-            if (ModelState.IsValid)
-            {
-                context.Users.Add(user);
-                context.SaveChanges();
-                return RedirectToAction("Login", "Auth");
-            }
-
-
-            return View("Create", user);
         }
 
         [HttpGet]
@@ -64,28 +71,35 @@ namespace FinancistoCloneV4.Controllers
             /* validar si el usuario existe en la base de datos y 
              verificar que el password o usuario sean correctos
              */
-            var user = context.Users
-                .Where(o => o.Username == username && o.Password == CreateHash(password))
-                .FirstOrDefault();
-
-            if (user != null)
+            try
             {
-                // Auntenticamos
-                var claims = new List<Claim>
+                var user = context.Users
+                    .Where(o => o.Username == username && o.Password == CreateHash(password))
+                    .FirstOrDefault();
+
+                if (user != null)
+                {
+                    // Auntenticamos
+                    var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, username)
                 };
 
-                var claimsIdentity = new ClaimsIdentity(claims, "Login");
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    var claimsIdentity = new ClaimsIdentity(claims, "Login");
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-                HttpContext.SignInAsync(claimsPrincipal);
+                    HttpContext.SignInAsync(claimsPrincipal);
 
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("Login", "Usuario o Contraseña Incorrectos");
+                return View();
+            }
+            catch(Exception) {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                //string error = ex.Message;
             }
 
-            ModelState.AddModelError("Login", "Usuario o Contraseña Incorrectos");
-            return View();
         }
 
         [HttpGet]

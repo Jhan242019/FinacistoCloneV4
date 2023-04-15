@@ -9,6 +9,7 @@ using Rotativa.AspNetCore;
 
 namespace FinancistoCloneV4.Controllers
 {
+    [Authorize]
     public class TransactionController : BaseController
     {
         private readonly FinancistoContext context;

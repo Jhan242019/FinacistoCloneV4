@@ -59,3 +59,11 @@
     text-align: center;
     margin: 1rem 0rem;
 }
+
+@media(max-width:320px) {
+    .botonLogin {
+        width: 100%;
+        text-align: center;
+        margin: 1rem 0rem;
+    }
+}
