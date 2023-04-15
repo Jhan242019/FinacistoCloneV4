@@ -10,6 +10,7 @@
     border-radius: 4px;
     box-shadow: 0 2px 15px rgb(128, 128, 128);
 }
+
 .box {
     display: flex;
     justify-content: center;
@@ -24,8 +25,7 @@
     padding: 0 15px 0 15px;
 }
 
-@media (max-width: 475px) 
-{
+@media (max-width: 475px) {
     .container {
         width: 350px;
         display: flex;
@@ -33,6 +33,7 @@
         padding: 0 15px 0 15px;
     }
 }
+
 @media (max-width: 375px) {
     .container {
         width: 250px;
@@ -54,6 +55,7 @@
     border-radius: 50%;
     text-align: center;
 }
+
 .botonLogin {
     width: 33%;
     text-align: center;
@@ -67,3 +69,21 @@
         margin: 1rem 0rem;
     }
 }
+
+/*CREATE USER*/
+.user-img {
+    margin-top: -50px;
+    margin-inline: 2rem;
+}
+
+    .user-img img {
+        width: 100px;
+        height: 100px;
+        box-shadow: 0px 0px 3px #848484;
+        border-radius: 50%;
+    }
+
+    .user-img input {
+        display: none;
+    }
+/*END CREATE USER*/

@@ -4,8 +4,11 @@
     <div class="login-form">
         <div class="box">
             <div class="container">
-                <div class="p-2" style="text-align:center;">
-                    <img src="/img/user2.png" class="img" accept="image/x-png,image/gif,image/jpeg">
+                <div class="p-2 user-img" style="text-align:center;">
+                    <div class="add-photo" id="add-photo">
+                        <img id="img" src="~/img/user2.png" width="50" height="50" alt="Cargar Imagen" style="cursor:pointer">
+                    </div>
+                    <input id="file" onchange="mostrar()" type="file" name="perfil" accept="image/x-png,image/gif,image/jpeg" />
                 </div>
                 <div class="text-danger">@Html.ValidationMessage("Username1")</div>
                 <div class="text-danger">@Html.ValidationMessage("Password1")</div>
@@ -26,3 +29,4 @@
         </div>
     </div>
 </form>
+                    

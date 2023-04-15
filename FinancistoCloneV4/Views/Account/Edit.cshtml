@@ -11,10 +11,10 @@
     <input type="hidden" name="CreditLimit" value="@account.CreditLimit" />
 
     <div class="col-12 p-2">
-        <img src="@account.ImagePath" width="250rem" class="p-2" />
+        <img src="@account.ImagePath" id="imgImage" class="p-2 form-control" style="width:25%;" />
     </div>
     <div class="input-group col-12">
-        <input type="file" class="form-control" name="Image">
+        <input type="file" class="form-control" id="inputImage" name="Image">
         <label class="input-group-text" for="inputGroupFile02">Imagen</label>
     </div>
     <div class="col-12">
@@ -56,3 +56,11 @@
         <a class="btn btn-danger" href="/account">Cancelar</a>
     </div>
 </form>
+<script>
+    const image = document.getElementById("imgImage");
+    const input = document.getElementById("inputImage");
+
+    input.addEventListener("change", () => {
+        image.src = URL.createObjectURL(input.files[0]);
+    });
+</script>
