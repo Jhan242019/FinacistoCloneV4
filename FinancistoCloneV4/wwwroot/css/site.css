@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -9,10 +9,16 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background: url(../img//fondo3.jpg) no-repeat center center fixed;
+    background-size: 100% 100%;
+}
+label {
+    color:#ffffff;
 }

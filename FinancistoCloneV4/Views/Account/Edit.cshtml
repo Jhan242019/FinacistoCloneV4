@@ -1,7 +1,7 @@
 ﻿@{
     var account = (Account)Model;
 }
-<h1>Editar Cuenta</h1>
+<h1 class="mt-4 text-center" style="color:white;">Editar Cuenta - <span class="text-info fst-italic">@account.Name</span></h1>
 
 <form class="row" action="/account/edit" enctype="multipart/form-data" method="post">
 
@@ -15,10 +15,10 @@
     </div>
     <div class="input-group col-12">
         <input type="file" class="form-control" id="inputImage" name="Image">
-        <label class="input-group-text" for="inputGroupFile02">Imagen</label>
+        <label class="input-group-text" for="inputGroupFile02" style="color:black;">Imagen</label>
     </div>
     <div class="col-12">
-        <label class="form-label">Tipo</label>
+        <label class="form-label" style="color:white;">Tipo</label>
         <select name="TypeId" class="form-control">
             @foreach (var item in ViewBag.Types)
             {
@@ -35,25 +35,25 @@
     </div>
 
     <div class="col-12">
-        <label class="form-label">Nombre</label>
+        <label class="form-label" style="color:white;">Nombre</label>
         <input class="form-control" name="Name" value="@account.Name" />
         <div class="alert-danger">@Html.ValidationMessage("Name1")</div>
     </div>
 
     <div class="col-12">
-        <label class="form-label">Divisa</label>
+        <label class="form-label" style="color:white;">Divisa</label>
         <select class="form-control" name="Currency">
             <option value="Soles">Soles</option>
         </select>
     </div>
 
     <div class="col-12">
-        <label class="form-label">Saldo Inicial</label>
+        <label class="form-label" style="color:white;">Saldo Inicial</label>
         <input type="number" class="form-control" name="Amount" value="@account.Amount" readonly />
     </div>
     <div class="col-12">
-        <button type="submit" class="btn btn-success" style="margin:1rem 0rem;">Guardar</button>
-        <a class="btn btn-danger" href="/account">Cancelar</a>
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem;"><i class="fas fa-save"></i> Guardar</button>
+        <a class="btn btn-danger" href="/account"><i class="fas fa-window-close"></i> Cancelar</a>
     </div>
 </form>
 <script>

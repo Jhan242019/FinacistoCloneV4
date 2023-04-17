@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 
 namespace FinancistoCloneV4.Controllers
 {
@@ -28,6 +29,7 @@ namespace FinancistoCloneV4.Controllers
             ViewBag.Types = _context.Types.ToList();
 
             return View("Index", accounts);
+            //return new ViewAsPdf("Index", accounts);
         }
 
         [HttpPost]

@@ -6,6 +6,10 @@
 <h2 class="text-center">Editar Transacción - <span class="text-info">@account.Name</span></h2>
 
 <div class="col-12 m-3">
+    <p class="text-center">Límite Crédito: <span class="@(account.CreditLimit < 0 ? "text-danger":"text-success")">S/. @account.CreditLimit</span></p>
+</div>
+
+<div class="col-12 m-3">
     <p class="text-center">Saldo: <span class="@(account.Amount < 0 ? "text-danger":"text-success")">S/. @account.Amount</span></p>
 </div>
 
@@ -51,15 +55,12 @@
         <label class="form-label">Monto</label>
         <div class="input-group mb-3">
             <span class="input-group-text">S/.</span>
-            <input type="number" class="form-control" name="Monto" value="@string.Format("{0:N2}", Math.Abs((decimal)transaction.Monto))">
+            <input type="number" class="form-control" name="Monto" value="@transaction.Monto">
             <span class="input-group-text">.00</span>
-        </div>
-        <div class="text-danger">
-            @Html.ValidationMessage("Monto1")
         </div>
     </div>
     <div class="col-12">
-        <button type="submit" class="btn btn-success" style="margin:1rem 0rem">Guardar</button>
-        <a class="btn btn-danger" href="/transaction/transactions?cuentaId=@account.Id">Cancelar</a>
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem"><i class="fas fa-save"></i> Guardar</button>
+        <a class="btn btn-danger" href="/transaction/transactions?cuentaId=@account.Id"><i class="fas fa-window-close"></i> Cancelar</a>
     </div>
 </form>

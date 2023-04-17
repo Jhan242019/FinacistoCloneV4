@@ -9,7 +9,7 @@
         <div class="modal-content">
             <form action="/account/create" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Cuenta</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLab0el">Crear Cuenta</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Tipo</label>
+                        <label class="form-label" style="color: #000000">Tipo</label>
                         <select name="TypeId" class="form-select" required>
                             <option value="">-- Seleccione un tipo --</option>
                             @foreach (var item in type)
@@ -33,19 +33,19 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Nombre</label>
+                        <label class="form-label" style="color: #000000">Nombre</label>
                         <input class="form-control" name="Name" required />
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Divisa</label>
+                        <label class="form-label" style="color: #000000">Divisa</label>
                         <select class="form-control" name="Currency">
                             <option value="Soles">Soles</option>
                         </select>
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Saldo Inicial</label>
+                        <label class="form-label" style="color: #000000">Saldo Inicial</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">S/.</span>
                             <input type="number" class="form-control" name="Amount" required>
@@ -54,41 +54,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" style="margin:1rem 0rem">Guardar</button>
-                    <a class="btn btn-danger" data-bs-dismiss="modal" href="/account">Cancelar</a>
+                    <button type="submit" class="btn btn-success" style="margin:1rem 0rem"><i class="fas fa-save"></i> Guardar</button>
+                    <a class="btn btn-danger" data-bs-dismiss="modal" href="/account"><i class="fas fa-window-close"></i> Cancelar</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!--END MODAL CREATE-->
-<!--START MODAL CONFIRM DELETE-->
-@*<div class="modal fade" id="modalDelete" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Cuenta</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group col-12">
-                    <p>¿Está seguro de eliminar esta cuenta?</p>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <a href="/account/delete?id=@acc.Id" class="btn btn-success" style="margin:1rem 0rem">Confirmar</a>
-                <a class="btn btn-danger" data-bs-dismiss="modal" href="/account">Cancelar</a>
-            </div>
-        </div>
-    </div>
-</div>*@
-<!--END MODAL DELETE-->
-
 
 <div class="container-fluid px-4">
-    <h2 class="mt-4 fst-italic text-center">Cuentas</h2>
+    <h2 class="mt-4 fst-italic text-center" style="color:white;">Cuentas</h2>
     <div class="justify-content-end">
-        <p class="float-end fw-bold fst-italic m-3">Saldo Total: <span class="@(accounts.Sum(o => o.Amount) >= 0 ? " text-success":"text-danger")">S/. @String.Format("{0:N2}",  accounts.Sum(o => o.Amount))</span></p>
+        <p class="float-end fw-bold fst-italic m-3" style="color:white;">Saldo Total: <span class="@(accounts.Sum(o => o.Amount) >= 0 ? " text-success":"text-danger")">S/. @String.Format("{0:N2}",  accounts.Sum(o => o.Amount))</span></p>
     </div>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
@@ -104,7 +81,7 @@
             Cuentas
         </div>
         <div class="card-body">
-            <table id="datatablesSimple" class="table table-dark table-striped">
+            <table id="datatablesSimple" class="table">
                 <thead>
                     <tr>
                         <th>Imagen</th>

@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Tipo</label>
+                        <label class="form-label" style="color: #000000">Tipo</label>
                         <select name="TypeId" class="form-select" required>
                             <option value="">-- Seleccione un tipo --</option>
                             @foreach (var item in type)
@@ -41,21 +41,21 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Nombre</label>
+                        <label class="form-label" style="color: #000000">Nombre</label>
                         <input class="form-control" name="Name" value="@account.Name" required/>
                         <div class="alert-danger">@Html.ValidationMessage("Name1")</div>
                         <div class="alert-danger">@Html.ValidationMessage("Name")</div>
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Divisa</label>
+                        <label class="form-label" style="color: #000000">Divisa</label>
                         <select class="form-control" name="Currency">
                             <option value="Soles">Soles</option>
                         </select>
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Saldo Inicial</label>
+                        <label class="form-label" style="color: #000000">Saldo Inicial</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">S/.</span>
                             <input type="number" class="form-control" name="Amount" value="@account.Amount" >

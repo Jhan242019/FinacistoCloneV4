@@ -3,12 +3,12 @@
     var account = (Account)ViewBag.Account;
 }
 <div class="container-fluid px-4">
-    <h2 class="mt-4 fst-italic text-center">Transacciones - <span class="text-info">@account.Name</span></h2>
+    <h2 class="mt-4 fst-italic text-center" style="color:white;">Transacciones - <span class="text-info">@account.Name</span></h2>
     <div class="justify-content-end">
-        <p class="m-3 float-end">Saldo: <span class="@(account.Amount > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.Amount) </span></p>
+        <p class="m-3 float-end fw-bold fst-italic" style="color:white;">Saldo: <span class="@(account.Amount > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.Amount) </span></p>
         @if (account.TypeId == 3)
         {
-            <p class="m-3 float-end">Límite de Saldo: <span class="@(account.CreditLimit > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
+            <p class="m-3 float-end fw-bold fst-italic" style="color:white;">Límite de Crédito: <span class="@(account.CreditLimit > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
         }
     </div>
     <ol class="breadcrumb mb-4">
@@ -23,7 +23,8 @@
             <a href="/transaction/pdf?cuentaId=@account.Id" class="btn btn-outline-danger" target="_blank">
                 <i class="fas fa-file-pdf"></i> PDF
             </a>
-            <a href="/transaction/createpdf?cuentaId=@account.Id" class="btn btn-outline-success">
+            <button id="btnPdf" class="btn btn-primary"> Generar PDF</button>
+            <a href="/transaction/ReporteExcel?cuentaId=@account.Id" class="btn btn-outline-success">
                 <i class="fas fa-file-excel"></i> Excel
             </a>
         </li>
@@ -33,8 +34,8 @@
             <i class="fas fa-table me-1"></i>
             Transacciones
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple" class="table table-dark table-striped">
+        <div id="pdfContainer" class="card-body">
+            <table id="datatablesSimple" class="table">
                 <thead>
                     <tr>
                         <th>Tipo</th>
