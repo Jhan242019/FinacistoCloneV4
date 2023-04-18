@@ -15,27 +15,27 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!--Design Tables-->
+    <!--Design Tables sirve-->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fontLogo">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FinancistoCloneV4</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">FinancistoCloneV4</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon text-white"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Cuentas</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Index">Cuentas</a>
                             </li>
                         </ul>
                     }
@@ -45,23 +45,29 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-outline-success" style="margin: 0px .5rem" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Log in</a>
+                                <a class="nav-link btn btn-primary text-white" style="margin: 0px .5rem;" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Log In</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-outline-info" asp-area="" asp-controller="Auth" asp-action="Create"><i class="fas fa-user-plus"></i> Register</a>
+                                <a class="nav-link btn btn-success text-white" asp-area="" asp-controller="Auth" asp-action="Create"><i class="fas fa-user-plus"></i> Register</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-user-tie"></i> @User.Claims.FirstOrDefault().Value
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog"></i> Ajustes</a></li>
-                                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#" style="font-size: .9rem;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+                                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
+                                            </svg>
+                                            Ajustes
+                                        </a>
+                                    </li>
                                     <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" asp-controller="Auth" asp-action="Logout"><i class="fas fa-power-off"></i> Log out</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Auth" asp-action="Logout" style="font-size: .9rem;"><i class="bi bi-power"></i> Cerrar Sesión</a></li>
                                 </ul>
                             </li>
                         }
@@ -76,11 +82,11 @@
         </main>
     </div>
 
-@*    <footer class="footer text-muted">
-        <div class="container">
-            &copy; 2023 - FinancistoCloneV4 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer text-muted">
+        <div class="container" style="text-align:center;">
+            Derechos reservados <a style="color:#fff" href="https://github.com/Jhan242019?tab=repositories" target="_blank">Jhan C. Ignacio Velásquez <i class="fab fa-github"></i></a>
         </div>
-    </footer>*@
+    </footer>
     <!--Sweetalert2-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/account.js"></script>
@@ -88,7 +94,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!--TABLES-->
+    <!--TABLES sirve-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="~/js/datatables-simple-demo.js"></script>

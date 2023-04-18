@@ -13,6 +13,13 @@ html {
     min-height: 100%;
 }
 
+header .fontLogo {
+    height: 100%;
+    background-repeat: no-repeat;
+    background: url(../img//fondo4.jpg) no-repeat center center fixed;
+    background-size: 100% 100%;
+}
+
 body {
     height: 100%;
     background-repeat: no-repeat;

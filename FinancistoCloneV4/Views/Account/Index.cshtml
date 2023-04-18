@@ -1,6 +1,7 @@
 ﻿@{
     var accounts = (List<Account>)Model;
     var type = (List<Types>)ViewBag.Types;
+    ViewData["Title"] = "Cuentas";
 }
 
 <!--START MODAL CREATE-->
@@ -81,7 +82,7 @@
             Cuentas
         </div>
         <div class="card-body">
-            <table id="datatablesSimple" class="table">
+            <table id="datatablesSimple" style="width:100%">
                 <thead>
                     <tr>
                         <th>Imagen</th>
