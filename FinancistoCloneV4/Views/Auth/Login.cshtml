@@ -1,6 +1,35 @@
 ﻿
 <link href="~/css/StyleLogin.css" rel="stylesheet">
+<style>
+    .input-field .input {
+        height: 45px;
+        width: 100%;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        color: #fff;
+        font-size: 15px;
+        padding: 0 0 0 45px;
+        background: rgba(252,252,252,0.1);
+        outline: none;
+    }
+    .input::placeholder{
+        font-weight: bold;
+        color: #fff;
+    }
 
+    .ci {
+        position: relative;
+        top: -33px;
+        left: 17px;
+        color: #fff;
+    }
+
+    ::-webkit-input-placeholder {
+        color: #fff;
+    }
+
+</style>
 <form action="/auth/login" method="post">
     <div class="login-form">
         <div class="box">
@@ -9,11 +38,13 @@
                     <img src="/img/user2.png" class="img" accept="image/x-png,image/gif,image/jpeg">
                 </div>
                 <div class="text-danger">@Html.ValidationMessage("Login")</div>
-                <div class="mb-3">
-                    <input type="text" class="form-control" name="Username" placeholder="Usuario">
+                <div class="mb-3 input-field">
+                    <input type="text" class="form-control input" name="Username" placeholder="Usuario">
+                    <i class="fas fa-user-tie ci"></i>
                 </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                <div class="mb-3 input-field">
+                    <input type="password" class="form-control input" name="Password" placeholder="Password">
+                    <i class="fas fa-unlock-alt ci"></i>
                 </div>
                 @Html.ValidationMessage("Username")
                 @Html.ValidationMessage("Password")

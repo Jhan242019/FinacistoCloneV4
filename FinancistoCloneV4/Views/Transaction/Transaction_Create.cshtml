@@ -6,10 +6,10 @@
 <h2 class="text-center" style="color:white;">Crear Transacción - <span class="text-info fst-italic">@account.Name</span></h2>
 
 <div class="col-12 m-3">
-    <p class="text-center fw-bold fst-italic" style="color:white;">Saldo: <span class="@(account.Amount < 0 ? "text-danger":"text-success")">S/. @account.Amount</span></p>
+    <p class="text-center fw-bold fst-italic" style="color:white;">Saldo: <span class="@(account.Amount < 0 ? "text-warning":"text-info")">S/. @account.Amount</span></p>
     @if (account.TypeId == 3)
     {
-        <p class="text-center fw-bold fst-italic" style="color:white;">Límite de Saldo: <span class="@(account.CreditLimit > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
+        <p class="text-center fw-bold fst-italic" style="color:white;">Límite de Saldo: <span class="@(account.CreditLimit > 0 ? "text-info":"text-warning")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
     }
 </div>
 

@@ -3,14 +3,14 @@
     var account = (Account)ViewBag.Account;
 }
 
-<h2 class="text-center">Editar Transacción - <span class="text-info">@account.Name</span></h2>
+<h2 class="text-center" style="color: #ffffff">Editar Transacción - <span class="text-info fst-italic">@account.Name</span></h2>
 
 <div class="col-12 m-3">
-    <p class="text-center">Límite Crédito: <span class="@(account.CreditLimit < 0 ? "text-danger":"text-success")">S/. @account.CreditLimit</span></p>
+    <p class="text-center fw-bold" style="color: #ffffff">Límite Crédito: <span class="@(account.CreditLimit < 0 ? "text-warning":"text-info")">S/. @account.CreditLimit</span></p>
 </div>
 
 <div class="col-12 m-3">
-    <p class="text-center">Saldo: <span class="@(account.Amount < 0 ? "text-danger":"text-success")">S/. @account.Amount</span></p>
+    <p class="text-center fw-bold" style="color: #ffffff">Saldo: <span class="@(account.Amount < 0 ? "text-warning":"text-info")">S/. @account.Amount</span></p>
 </div>
 
 <form class="row" action="/transaction/transaction_edit" method="post">

@@ -1,5 +1,34 @@
 ﻿<link href="~/css/StyleLogin.css" rel="stylesheet">
+<style>
+    .input-field .input {
+        height: 45px;
+        width: 100%;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        color: #fff;
+        font-size: 15px;
+        padding: 0 0 0 45px;
+        background: rgba(252,252,252,0.1);
+        outline: none;
+    }
+    .input::placeholder{
+        font-weight: bold;
+        color: #fff;
+    }
 
+    .ci {
+        position: relative;
+        top: -33px;
+        left: 17px;
+        color: #fff;
+    }
+
+    ::-webkit-input-placeholder {
+        color: #fff;
+    }
+
+</style>
 <form action="/auth/create" method="post" enctype="multipart/form-data">
     <div class="login-form">
         <div class="box">
@@ -12,16 +41,19 @@
                 </div>
                 <div class="text-danger">@Html.ValidationMessage("Username1")</div>
                 <div class="text-danger">@Html.ValidationMessage("Password1")</div>
-                <div class="mb-3">
-                    <input type="text" class="form-control " name="Username" placeholder="User">
+                <div class="mb-3 input-field">
+                    <input type="text" class="form-control input" name="Username" placeholder="User">
+                    <i class="fas fa-user-tie ci"></i>
                     <div class="text-danger">@Html.ValidationMessage("Username")</div>
                 </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                <div class="mb-3 input-field">
+                    <input type="password" class="form-control input" name="Password" placeholder="Password">
+                    <i class="fas fa-unlock-alt ci"></i>
                     <div class="text-danger">@Html.ValidationMessage("Password")</div>
                 </div>        
-                <div class="mb-3">
-                    <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
+                <div class="mb-3 input-field">
+                    <input type="password" class="form-control input" name="ConfirmPassword" placeholder="Confirm Password">
+                    <i class="fas fa-unlock-alt ci"></i>
                 </div>
                 <div class="text-danger">@Html.ValidationMessage("ConfirmPass")</div>
                 <button onclick="regisUser()" class="btn btn-success botonLogin"><i class="fas fa-user-plus"></i> Register</button>

@@ -3,6 +3,11 @@
     var transactions = (List<Transaction>)Model;
     //var acc = (Account)ViewBag.Account;
 }
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<button id="btnPdf" class="btn btn-primary"> Generar PDF</button>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -110,3 +115,10 @@
     </div>
 </body>
 </html>
+<script type="text/javascript">
+    $("#btnPdf").click(function () {
+        var sHtml = $("#pdfContainer").html();
+        sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag");
+        window.open('../Transaction/TransactionPdf?html=' + sHtml, '_blank');
+    });
+</script>

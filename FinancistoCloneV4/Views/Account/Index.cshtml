@@ -65,7 +65,7 @@
 <div class="container-fluid px-4">
     <h2 class="mt-4 fst-italic text-center" style="color:white;">Cuentas</h2>
     <div class="justify-content-end">
-        <p class="float-end fw-bold fst-italic m-3" style="color:white;">Saldo Total: <span class="@(accounts.Sum(o => o.Amount) >= 0 ? " text-success":"text-danger")">S/. @String.Format("{0:N2}",  accounts.Sum(o => o.Amount))</span></p>
+        <p class="float-end fw-bold fst-italic m-3" style="color:white;">Saldo Total: <span class="@(accounts.Sum(o => o.Amount) >= 0 ? "text-info":"text-warning")">S/. @String.Format("{0:N2}",  accounts.Sum(o => o.Amount))</span></p>
     </div>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">

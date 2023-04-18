@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
+using SelectPdf;
 using System.Drawing;
 
 namespace FinancistoCloneV4.Controllers
@@ -112,6 +113,41 @@ namespace FinancistoCloneV4.Controllers
                 //PageSize = Rotativa.AspNetCore.Options.Size.A4
             };
         }
+
+        public IActionResult TransactionPdf(string html)
+        {
+            html = html.Replace("StrTag", "<").Replace("EndTag", ">");
+
+            HtmlToPdf oHtmlToPdf = new HtmlToPdf();
+            PdfDocument oPdfDocument = oHtmlToPdf.ConvertHtmlString(html);
+            byte[] pdf = oPdfDocument.Save();
+            oPdfDocument.Close();
+
+            return File(
+                    pdf,
+                    "application/pdf",
+                    "Transaciones" + "Hola" + ".pdf"
+                );
+
+
+            //var transactions = context.Transactions
+            //    .Include(o => o.Account)
+            //    .Where(o => o.CuentaId == cuentaId)
+            //    .OrderByDescending(o => o.FechaHora)
+            //    .ToList();
+
+            //ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
+
+            //return new ViewAsPdf("PDF", transactions)
+            //{
+            //    //FileName = $"Transactiones - {ViewBag.Account.Name}.pdf",
+            //    //PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+            //    //PageSize = Rotativa.AspNetCore.Options.Size.A4
+            //};
+        }
+
+
+
 
         //Reporte en Excel
         public IActionResult ReporteExcel(int cuentaId)

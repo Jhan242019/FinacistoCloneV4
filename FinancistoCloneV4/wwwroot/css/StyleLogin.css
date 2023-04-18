@@ -1,5 +1,5 @@
 ﻿.login-form {
-    /*background-image: url(../img/fontLogin2.jpg);*/
+    background-color: rgb(4, 4, 4, 0.54);
     width: 100%;
     margin: 50px 10px;
     display: -webkit-box;
@@ -8,7 +8,7 @@
     -webkit-box-direction: normal;
     flex-direction: column;
     border-radius: 4px;
-    box-shadow: 0 2px 15px rgb(128, 128, 128);
+    box-shadow: 0 2px 15px rgb(252, 252, 252);
 }
 
 .box {

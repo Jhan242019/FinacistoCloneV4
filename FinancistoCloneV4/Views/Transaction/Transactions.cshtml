@@ -2,29 +2,29 @@
     var transaction = (List<Transaction>)Model;
     var account = (Account)ViewBag.Account;
 }
+
 <div class="container-fluid px-4">
     <h2 class="mt-4 fst-italic text-center" style="color:white;">Transacciones - <span class="text-info">@account.Name</span></h2>
     <div class="justify-content-end">
-        <p class="m-3 float-end fw-bold fst-italic" style="color:white;">Saldo: <span class="@(account.Amount > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.Amount) </span></p>
+        <p class="m-3 float-end fw-bold fst-italic" style="color:white;">Saldo: <span class="@(account.Amount > 0 ? "text-info":"text-warning")">S/. @string.Format("{0:N2}", account.Amount) </span></p>
         @if (account.TypeId == 3)
         {
-            <p class="m-3 float-end fw-bold fst-italic" style="color:white;">Límite de Crédito: <span class="@(account.CreditLimit > 0 ? "text-success":"text-danger")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
+            <p class="m-3 float-end fw-bold fst-italic" style="color:white;">Límite de Crédito: <span class="@(account.CreditLimit > 0 ? "text-info":"text-danger")">S/. @string.Format("{0:N2}", account.CreditLimit) </span></p>
         }
     </div>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
-            <a href="/transaction/transaction_create?cuentaId=@account.Id" class="btn btn-success">
+            <a href="/transaction/transaction_create?cuentaId=@account.Id" class="btn btn-primary">
                 <i class="fas fa-plus-circle"></i>
                 Crear Transacción
             </a>
-            <a href="/account/index" class="btn btn-outline-info">
+            <a href="/account/index" class="btn btn-info">
                 <i class="fas fa-reply-all"></i> Ir a cuentas
             </a>
-            <a href="/transaction/pdf?cuentaId=@account.Id" class="btn btn-outline-danger" target="_blank">
+            <a href="/transaction/pdf?cuentaId=@account.Id" class="btn btn-danger" target="_blank">
                 <i class="fas fa-file-pdf"></i> PDF
             </a>
-            <button id="btnPdf" class="btn btn-primary"> Generar PDF</button>
-            <a href="/transaction/ReporteExcel?cuentaId=@account.Id" class="btn btn-outline-success">
+            <a href="/transaction/ReporteExcel?cuentaId=@account.Id" class="btn btn-success">
                 <i class="fas fa-file-excel"></i> Excel
             </a>
         </li>
@@ -34,7 +34,7 @@
             <i class="fas fa-table me-1"></i>
             Transacciones
         </div>
-        <div id="pdfContainer" class="card-body">
+        <div class="card-body">
             <table id="datatablesSimple" class="table">
                 <thead>
                     <tr>
@@ -90,14 +90,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-<table class="table table-dark table-striped">
-</table>
