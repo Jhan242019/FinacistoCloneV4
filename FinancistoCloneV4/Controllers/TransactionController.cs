@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
 using SelectPdf;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace FinancistoCloneV4.Controllers
@@ -98,20 +99,26 @@ namespace FinancistoCloneV4.Controllers
         //PDF
         public IActionResult PDF(int cuentaId)
         {
-            var transactions = context.Transactions
-                .Include(o => o.Account)
-                .Where(o => o.CuentaId == cuentaId)
-                .OrderByDescending(o => o.FechaHora)
-                .ToList();
-
-            ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
-
-            return new ViewAsPdf("PDF", transactions)
+            try
             {
-                //FileName = $"Transactiones - {ViewBag.Account.Name}.pdf",
-                //PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                //PageSize = Rotativa.AspNetCore.Options.Size.A4
-            };
+                var transactions = context.Transactions
+                    .Include(o => o.Account)
+                    .Where(o => o.CuentaId == cuentaId)
+                    .OrderByDescending(o => o.FechaHora)
+                    .ToList();
+
+                ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
+
+                return new ViewAsPdf("PDF", transactions)
+                {
+                    //FileName = $"Transactiones - {ViewBag.Account.Name}.pdf",
+                    //PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                    //PageSize = Rotativa.AspNetCore.Options.Size.A4
+                };
+            }
+            catch (Exception){
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
 
         public IActionResult TransactionPdf(string html)
@@ -152,79 +159,85 @@ namespace FinancistoCloneV4.Controllers
         //Reporte en Excel
         public IActionResult ReporteExcel(int cuentaId)
         {
-
-            var transactions = context.Transactions
+            try
+            {
+                var transactions = context.Transactions
                 .Include(o => o.Account)
                 .Where(o => o.CuentaId == cuentaId)
                 .OrderByDescending(o => o.FechaHora)
                 .ToList();
 
-            var acc = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
+                var acc = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
 
-            using (var worklibro = new XLWorkbook())
-            {
-                //Generamos la hoja
-                var workhoja = worklibro.Worksheets.Add("Transacciones");
-                var currenRow = 3;
-                var currenCol = transactions.Count(o => o.CuentaId == cuentaId) + 4;
-
-                #region Header
-                //Generamos la cabecera
-                workhoja.Cell(1, 3).Value = "Cuenta " + acc.Name;
-                workhoja.Cell(1, 3).Style.Font.FontSize = 20;
-                workhoja.Cell(1, 3).Style.Fill.BackgroundColor = XLColor.AppleGreen;
-
-                workhoja.Cell(currenRow, 1).Value = "N°";
-                workhoja.Cell(currenRow, 2).Value = "Tipo";
-                workhoja.Cell(currenRow, 3).Value = "FechaHora";
-                workhoja.Cell(currenRow, 4).Value = "Motivo";
-                workhoja.Cell(currenRow, 5).Value = "Monto";
-                workhoja.Cell(currenCol, 4).Value = "TOTAL:";
-                workhoja.Cell(currenCol, 4).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
-                workhoja.Cell(currenCol, 4).Style.Font.FontSize = 14; //Indicamos el tamaño de la fuente
-                workhoja.Cell(currenCol, 4).Style.Fill.BackgroundColor = XLColor.AppleGreen;
-
-                //-----------Le damos el formato a la cabecera----------------
-                var rango = workhoja.Range("A3:E3"); //Seleccionamos un rango
-                rango.Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium); //Generamos las lineas exteriores
-                rango.Style.Border.SetInsideBorder(XLBorderStyleValues.Medium); //Generamos las lineas interiores
-                rango.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; //Alineamos horizontalmente
-                rango.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;  //Alineamos verticalmente
-                rango.Style.Font.FontSize = 14; //Indicamos el tamaño de la fuente
-                rango.Style.Fill.BackgroundColor = XLColor.AppleGreen; //Indicamos el color de background
-
-                #endregion
-
-                #region Body
-                foreach (var transaction in transactions) 
-                { 
-                    currenRow++;
-                    workhoja.Cell(currenRow, 1).Value = currenRow - 3;
-                    workhoja.Cell(currenRow, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                    workhoja.Cell(currenRow, 2).Value = transaction.Tipo;
-                    workhoja.Cell(currenRow, 3).Value = transaction.FechaHora.ToString("dddd dd MMM yyyy - hh:mm tt");
-                    workhoja.Cell(currenRow, 4).Value = transaction.Motivo;
-                    workhoja.Cell(currenRow, 5).Value = transaction.Monto;
-                    workhoja.Columns(1, 5).AdjustToContents();
-                }
-                workhoja.Cell(currenCol, 5).Value = transactions.Sum(o => o.Monto);
-                workhoja.Cell(currenCol, 5).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
-                workhoja.Cell(currenCol, 5).Style.Font.FontSize = 14;
-
-                #endregion
-
-                using (var stream = new MemoryStream())
+                using (var worklibro = new XLWorkbook())
                 {
-                    worklibro.SaveAs(stream);
-                    var content = stream.ToArray();
+                    //Generamos la hoja
+                    var workhoja = worklibro.Worksheets.Add("Transacciones");
+                    var currenRow = 3;
+                    var currenCol = transactions.Count(o => o.CuentaId == cuentaId) + 4;
 
-                    return File(
-                        content,
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        "Transacciones de "+ acc.Name +".xlsx"
-                        );
+                    #region Header
+                    //Generamos la cabecera
+                    workhoja.Cell(1, 3).Value = "Cuenta " + acc.Name;
+                    workhoja.Cell(1, 3).Style.Font.FontSize = 20;
+                    workhoja.Cell(1, 3).Style.Fill.BackgroundColor = XLColor.AppleGreen;
+
+                    workhoja.Cell(currenRow, 1).Value = "N°";
+                    workhoja.Cell(currenRow, 2).Value = "Tipo";
+                    workhoja.Cell(currenRow, 3).Value = "FechaHora";
+                    workhoja.Cell(currenRow, 4).Value = "Motivo";
+                    workhoja.Cell(currenRow, 5).Value = "Monto";
+                    workhoja.Cell(currenCol, 4).Value = "TOTAL:";
+                    workhoja.Cell(currenCol, 4).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
+                    workhoja.Cell(currenCol, 4).Style.Font.FontSize = 14; //Indicamos el tamaño de la fuente
+                    workhoja.Cell(currenCol, 4).Style.Fill.BackgroundColor = XLColor.AppleGreen;
+
+                    //-----------Le damos el formato a la cabecera----------------
+                    var rango = workhoja.Range("A3:E3"); //Seleccionamos un rango
+                    rango.Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium); //Generamos las lineas exteriores
+                    rango.Style.Border.SetInsideBorder(XLBorderStyleValues.Medium); //Generamos las lineas interiores
+                    rango.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; //Alineamos horizontalmente
+                    rango.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;  //Alineamos verticalmente
+                    rango.Style.Font.FontSize = 14; //Indicamos el tamaño de la fuente
+                    rango.Style.Fill.BackgroundColor = XLColor.AppleGreen; //Indicamos el color de background
+
+                    #endregion
+
+                    #region Body
+                    foreach (var transaction in transactions)
+                    {
+                        currenRow++;
+                        workhoja.Cell(currenRow, 1).Value = currenRow - 3;
+                        workhoja.Cell(currenRow, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        workhoja.Cell(currenRow, 2).Value = transaction.Tipo;
+                        workhoja.Cell(currenRow, 3).Value = transaction.FechaHora.ToString("dddd dd MMM yyyy - hh:mm tt");
+                        workhoja.Cell(currenRow, 4).Value = transaction.Motivo;
+                        workhoja.Cell(currenRow, 5).Value = transaction.Monto;
+                        workhoja.Columns(1, 5).AdjustToContents();
+                    }
+                    workhoja.Cell(currenCol, 5).Value = transactions.Sum(o => o.Monto);
+                    workhoja.Cell(currenCol, 5).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
+                    workhoja.Cell(currenCol, 5).Style.Font.FontSize = 14;
+
+                    #endregion
+
+                    using (var stream = new MemoryStream())
+                    {
+                        worklibro.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(
+                            content,
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            "Transacciones de " + acc.Name + ".xlsx"
+                            );
+                    }
                 }
             }
+            catch (Exception)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            } 
         }
 
 

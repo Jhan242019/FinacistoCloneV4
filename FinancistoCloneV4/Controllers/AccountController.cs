@@ -28,8 +28,7 @@ namespace FinancistoCloneV4.Controllers
 
             ViewBag.Types = _context.Types.ToList();
 
-            return View("Index", accounts);
-            //return new ViewAsPdf("Index", accounts);
+            return View("Index", accounts);     
         }
 
         [HttpPost]

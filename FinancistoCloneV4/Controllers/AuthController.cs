@@ -89,15 +89,13 @@ namespace FinancistoCloneV4.Controllers
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
                     HttpContext.SignInAsync(claimsPrincipal);
-
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Login", "Usuario o Contraseña Incorrectos");
                 return View();
             }
-            catch(Exception) {
+            catch (Exception){
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-                //string error = ex.Message;
             }
 
         }
