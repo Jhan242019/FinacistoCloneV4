@@ -37,24 +37,27 @@
                     </div>
                     <input id="file" onchange="mostrar()" type="file" name="perfil" accept="image/x-png,image/gif,image/jpeg" />
                 </div>
-                <div class="text-danger">@Html.ValidationMessage("Username1")</div>
-                <div class="text-danger">@Html.ValidationMessage("Password1")</div>
+                <span class="text-danger">@Html.ValidationMessage("Username1")</span>
+                <span class="text-danger">@Html.ValidationMessage("Password1")</span>
                 <div class="mb-3 input-field">
-                    <input type="text" class="form-control input" name="Username" placeholder="User">
+                    <input type="text" class="form-control input" name="Username" placeholder="Usuario">
                     <i class="fas fa-user-tie ci"></i>
-                    <div class="text-danger">@Html.ValidationMessage("Username")</div>
+                    <span class="text-danger">@Html.ValidationMessage("Username")</span>
                 </div>
                 <div class="mb-3 input-field">
-                    <input type="password" class="form-control input" name="Password" placeholder="Password">
+                    <input type="password" class="form-control input" name="Password" placeholder="Contraseña">
                     <i class="fas fa-unlock-alt ci"></i>
-                    <div class="text-danger">@Html.ValidationMessage("Password")</div>
+                    <span class="text-danger">@Html.ValidationMessage("Password")</span>
                 </div>        
                 <div class="mb-3 input-field">
-                    <input type="password" class="form-control input" name="ConfirmPassword" placeholder="Confirm Password">
+                    <input type="password" class="form-control input" name="ConfirmPassword" placeholder="Confirmar Contraseña">
                     <i class="fas fa-unlock-alt ci"></i>
                 </div>
-                <div class="text-danger">@Html.ValidationMessage("ConfirmPass")</div>
-                <button onclick="regisUser()" class="btn btn-success botonLogin"><i class="fas fa-user-plus"></i> Register</button>
+                <span class="text-danger">@Html.ValidationMessage("ConfirmPass")</span>
+                <div class="bbtn">
+                    <button onclick="regisUser()" class="btn btn-success botonLogin"><i class="fas fa-user-plus"></i> Registrarte</button>
+                </div>
+                
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@
     <p class="text-center fw-bold" style="color: #ffffff">Saldo: <span class="@(account.Amount < 0 ? "text-warning":"text-info")">S/. @account.Amount</span></p>
 </div>
 
-<form class="row" action="/transaction/transaction_edit" method="post">
+<form class="row formulario" action="/transaction/transaction_edit" method="post">
 
     <input type="hidden" name="Id" value="@transaction.Id" />
     <input type="hidden" name="CuentaId" value="@account.Id" />

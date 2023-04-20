@@ -1,6 +1,8 @@
 ﻿using FinancistoCloneV4.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -27,7 +29,8 @@ namespace FinancistoCloneV4.Controllers
         [HttpPost]
         public IActionResult Create(User user, string ConfirmPassword)
         {
-            try {
+            try
+            {
                 user.Password = CreateHash(user.Password);
 
                 var users = context.Users.ToList();
@@ -94,17 +97,54 @@ namespace FinancistoCloneV4.Controllers
                 ModelState.AddModelError("Login", "Usuario o Contraseña Incorrectos");
                 return View();
             }
-            catch (Exception){
+            catch (Exception)
+            {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
 
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();
             return RedirectToAction("Login");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult ConfUser(string username)
+        {
+            var usuario = context.Users.FirstOrDefault(o => o.Username == username);
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public IActionResult ConfUser(User user, string ConfirmPassword)
+        {
+            try
+            {
+                user.Password = CreateHash(user.Password);
+
+                var usuario = context.Users.FirstOrDefault(o => o.Id == LoggedUser().Id);
+                //if (user.Password != CreateHash(ConfirmPassword))
+                //{
+                //    ModelState.AddModelError("ConfirmPass", "Las contraseñas no coinciden");
+                //}
+                //if (ModelState.IsValid)
+                //{
+                //context.Users.Update(user);
+                usuario.Password = user.Password;
+                context.SaveChanges();
+                HttpContext.SignOutAsync();
+                return RedirectToAction("Login", "Auth");
+                //}
+                //return View(user);
+            }
+            catch (Exception)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
 
         private string CreateHash(string input)

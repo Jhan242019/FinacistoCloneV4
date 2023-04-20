@@ -57,9 +57,16 @@
 }
 
 .botonLogin {
-    width: 33%;
+    width: 45%;
     text-align: center;
     margin: 1rem 0rem;
+}
+
+.bbtn {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 @media(max-width:320px) {

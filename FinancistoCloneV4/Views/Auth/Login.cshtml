@@ -35,7 +35,7 @@
                 <div class="p-2" style="text-align:center;">
                     <img src="/img/user2.png" class="img" accept="image/x-png,image/gif,image/jpeg">
                 </div>
-                <div class="text-danger">@Html.ValidationMessage("Login")</div>
+                <span class="text-danger">@Html.ValidationMessage("Login")</span>
                 <div class="mb-3 input-field">
                     <input type="text" class="form-control input" name="Username" placeholder="Usuario">
                     <i class="fas fa-user-tie ci"></i>
@@ -46,7 +46,9 @@
                 </div>
                 @Html.ValidationMessage("Username")
                 @Html.ValidationMessage("Password")
-                <button class="btn btn-success botonLogin" onclick="loginCorrect()"><i class="fas fa-sign-out-alt"></i> Login</button>
+                <div class="bbtn">
+                    <button class="btn btn-success botonLogin" onclick="loginCorrect()"><i class="fas fa-sign-out-alt"></i> Login</button>
+                </div> 
             </div>
         </div>
     </div>
