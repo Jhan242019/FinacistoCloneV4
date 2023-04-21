@@ -1,8 +1,10 @@
-﻿using FinancistoCloneV4.Models;
+﻿using DocumentFormat.OpenXml.InkML;
+using FinancistoCloneV4.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
+using System.Diagnostics;
 
 namespace FinancistoCloneV4.Controllers
 {
@@ -28,7 +30,7 @@ namespace FinancistoCloneV4.Controllers
 
             ViewBag.Types = _context.Types.ToList();
 
-            return View("Index", accounts);     
+            return View("Index", accounts);
         }
 
         [HttpPost]
@@ -82,10 +84,10 @@ namespace FinancistoCloneV4.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Account account, IFormFile image) 
+        public ActionResult Edit(Account account, IFormFile image)
         {
             if (account.Name == null)
-                ModelState.AddModelError("Name1","Ingrese Nombre");
+                ModelState.AddModelError("Name1", "Ingrese Nombre");
 
 
             if (ModelState.IsValid)
@@ -108,6 +110,63 @@ namespace FinancistoCloneV4.Controllers
             return RedirectToAction("Index");
         }
 
+        /*Transferencia*/
+        [HttpGet]
+        public IActionResult Transferencia()
+        {
+            var accounts = _context.Accounts.Where(o => o.UserId == LoggedUser().Id).ToList();
+            return View(accounts);
+        }
+
+        [HttpPost]
+        public IActionResult Transferencia(int sourceAccountId, int destAccountId, decimal amount)
+        {
+            var accounts = _context.Accounts.Where(o => o.UserId == LoggedUser().Id).ToList();
+
+            try {
+                var transactionOrigen = new Transaction
+                {
+                    CuentaId = sourceAccountId,
+                    FechaHora = DateTime.Now,
+                    Tipo = "Gasto",
+                    Motivo = "Transferencia",
+                    Monto = amount * -1
+                };
+                var transactionDestino = new Transaction
+                {
+                    CuentaId = destAccountId,
+                    FechaHora = DateTime.Now,
+                    Tipo = "Ingreso",
+                    Motivo = "Transferencia",
+                    Monto = amount
+                };
+
+                if (sourceAccountId == destAccountId)
+                {
+                    ModelState.AddModelError("transfer", "Son las mismas cuentas, por favor seleecione otra");
+                }
+                if (ModelState.IsValid)
+                {
+                    _context.Transactions.Add(transactionOrigen);
+                    _context.Transactions.Add(transactionDestino);
+
+                    _context.SaveChanges();
+
+                    UpdateAmountAccount(sourceAccountId);
+                    UpdateAmountAccount(destAccountId);
+
+                    return RedirectToAction("Index", "Account");
+                }
+                return View(accounts);
+            }
+            catch(Exception) {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
+
+        /*Métodos privados*/
         private string SaveImage(IFormFile image)
         {
             if (image != null && image.Length > 0)
@@ -123,6 +182,17 @@ namespace FinancistoCloneV4.Controllers
             }
 
             return "/files/imageAccount.png";
+        }
+
+        private void UpdateAmountAccount(int cuentaId)
+        {
+            var account = _context.Accounts
+                .Include(o => o.Transactions)
+                .FirstOrDefault(o => o.Id == cuentaId);
+
+            var total = account.Transactions.Sum(o => o.Monto);
+            account.Amount = total;
+            _context.SaveChanges();
         }
     }
 }

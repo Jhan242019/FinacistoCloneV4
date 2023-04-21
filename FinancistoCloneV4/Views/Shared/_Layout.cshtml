@@ -46,10 +46,10 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link btn btn-primary text-white" style="margin: 0px .5rem;" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Log In</a>
+                                <a class="nav-link btn btn-primary text-white btn-layout" asp-area="" asp-controller="Auth" asp-action="Login"><i class="fas fa-sign-out-alt"></i> Log In</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-success text-white" asp-area="" asp-controller="Auth" asp-action="Create"><i class="fas fa-user-plus"></i> Register</a>
+                                <a class="nav-link btn btn-success text-white btn-layout" asp-area="" asp-controller="Auth" asp-action="Create"><i class="fas fa-user-plus"></i> Register</a>
                             </li>
                         }
                         else

@@ -32,3 +32,14 @@ label {
 .formulario label {
     color: #ffffff;
 }
+
+/*Login and register Layout*/
+.btn-layout {
+    margin-left: .5rem;
+}
+@media (max-width: 575px) {
+    .btn-layout {
+        width: 35%;
+        margin: 1rem auto 0rem auto;
+    }
+}

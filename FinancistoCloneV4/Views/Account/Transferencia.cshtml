@@ -1,0 +1,42 @@
+﻿@{
+    var accounts = (List<Account>)Model;
+}
+
+<h2 class="text-white">Transferencias</h2>
+
+<form class="formulario" action="/account/transferencia" method="post">
+    <span class="text-danger">@Html.ValidationMessage("transfer")</span>
+    <div class="col-12">
+        <label class="form-label">Cuenta Origen</label>
+        <select name="sourceAccountId" class="form-select" required>
+            <option value="">-- Seleccione una cuenta --</option>
+            @foreach (var item in accounts)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Cuenta Destino</label>
+        <select name="destAccountId" class="form-select" required>
+            <option value="">-- Seleccione una cuenta --</option>
+            @foreach (var item in accounts)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Monto a transferir</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">S/.</span>
+            <input type="number" class="form-control" name="amount" required>
+            <span class="input-group-text">.00</span>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem"><i class="fas fa-save"></i> Tranferir</button>
+        <a class="btn btn-danger" href="/account"><i class="fas fa-window-close"></i> Cancelar</a>
+    </div>
+</form>
