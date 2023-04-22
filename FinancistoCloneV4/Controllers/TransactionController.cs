@@ -121,40 +121,65 @@ namespace FinancistoCloneV4.Controllers
             }
         }
 
-        public IActionResult TransactionPdf(string html)
-        {
-            html = html.Replace("StrTag", "<").Replace("EndTag", ">");
+        [HttpGet]
+        public IActionResult Transaction_Transferencia(int cuentaId)
+        { 
+            ViewBag.account = context.Accounts
+                .Where(o => o.UserId == LoggedUser().Id)
+                .ToList();
 
-            HtmlToPdf oHtmlToPdf = new HtmlToPdf();
-            PdfDocument oPdfDocument = oHtmlToPdf.ConvertHtmlString(html);
-            byte[] pdf = oPdfDocument.Save();
-            oPdfDocument.Close();
+            ViewBag.cuentaOrigen = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
 
-            return File(
-                    pdf,
-                    "application/pdf",
-                    "Transaciones" + "Hola" + ".pdf"
-                );
-
-
-            //var transactions = context.Transactions
-            //    .Include(o => o.Account)
-            //    .Where(o => o.CuentaId == cuentaId)
-            //    .OrderByDescending(o => o.FechaHora)
-            //    .ToList();
-
-            //ViewBag.Account = context.Accounts.FirstOrDefault(o => o.Id == cuentaId);
-
-            //return new ViewAsPdf("PDF", transactions)
-            //{
-            //    //FileName = $"Transactiones - {ViewBag.Account.Name}.pdf",
-            //    //PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-            //    //PageSize = Rotativa.AspNetCore.Options.Size.A4
-            //};
+            return View(new Account());
         }
 
+        [HttpPost]
+        public IActionResult Transaction_Transferencia(int cuentaOrigen, int cuentaDestino, int monto)
+        {
+            ViewBag.account = context.Accounts
+                .Where(o => o.UserId == LoggedUser().Id)
+                .ToList();
 
+            ViewBag.cuentaOrigen = context.Accounts.FirstOrDefault(o => o.Id == cuentaOrigen);
 
+            var transactionOrigen = new Transaction
+            {
+                CuentaId = cuentaOrigen,
+                Tipo = "Gasto",
+                FechaHora = DateTime.Now,
+                Motivo = "Transferencia",
+                Monto = monto * -1
+            };
+
+            var transactionDestino = new Transaction
+            {
+                CuentaId = cuentaDestino,
+                Tipo = "Ingreso",
+                FechaHora = DateTime.Now,
+                Motivo = "Transferencia",
+                Monto = monto
+            };
+
+            if (cuentaOrigen == cuentaDestino)
+                ModelState.AddModelError("cuentaIgual","No puede seleccionar las mismas cuentas");
+
+            if (monto < 1)
+                ModelState.AddModelError("monto", "Ingrese un monto mayor o igual que S/. 1.00");
+
+            if (ModelState.IsValid)
+            {
+                context.Transactions.Add(transactionOrigen);
+                context.Transactions.Add(transactionDestino);
+
+                context.SaveChanges();
+
+                UpdateAmountAccount(cuentaOrigen);
+                UpdateAmountAccount(cuentaDestino);
+
+            return RedirectToAction("Transactions", new { cuentaId = transactionOrigen.CuentaId });
+            }
+            return View();
+        }
 
         //Reporte en Excel
         public IActionResult ReporteExcel(int cuentaId)

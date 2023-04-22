@@ -1,0 +1,41 @@
+﻿@{
+    var accounts = (List<Account>)ViewBag.account;
+}
+
+<h2 class="text-white text-center">Transferencia - <span class="fst-italic">@ViewBag.cuentaOrigen.Name</span></h2>
+
+<form class="formulario" action="/transaction/transaction_transferencia" method="post">
+    <span class="text-danger">@Html.ValidationMessage("cuentaIgual")</span>
+    <input type="hidden" name="cuentaOrigen" value="@ViewBag.cuentaOrigen.Id" />
+@*    <div class="col-12">
+        <select name="cuentaOrigen" class="form-select" required>
+            @foreach (var item in accounts)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>*@
+    <div class="col-12">
+        <label>Cuenta Destino</label>
+        <select name="cuentaDestino" class="form-select" required>
+            <option value="">-- Seleccione una cuenta --</option>
+            @foreach (var item in accounts)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-12">
+        <label>Monto</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">S/.</span>
+            <input type="number" class="form-control" name="monto" required>
+            <span class="input-group-text">.00</span>
+        </div>
+        <span class="text-danger">@Html.ValidationMessage("monto")</span>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" style="margin:1rem 0rem"><i class="fas fa-save"></i> Tranferir</button>
+        <a class="btn btn-danger" href="/transaction/transactions?cuentaId=@ViewBag.cuentaOrigen.Id"><i class="fas fa-window-close"></i> Cancelar</a>
+    </div>
+</form>

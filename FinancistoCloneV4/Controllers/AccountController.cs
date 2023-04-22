@@ -142,9 +142,11 @@ namespace FinancistoCloneV4.Controllers
                 };
 
                 if (sourceAccountId == destAccountId)
-                {
                     ModelState.AddModelError("transfer", "Son las mismas cuentas, por favor seleecione otra");
-                }
+
+                if (amount < 1)
+                    ModelState.AddModelError("monton","Ingrese un monto mayor o igual que S/. 1.00");
+
                 if (ModelState.IsValid)
                 {
                     _context.Transactions.Add(transactionOrigen);

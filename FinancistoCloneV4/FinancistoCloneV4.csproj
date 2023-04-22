@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="Views\Transaction\TransactionPdf.cshtml">
+	  <Content Update="Views\Transaction\Transaction_Transferencia.cshtml">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>

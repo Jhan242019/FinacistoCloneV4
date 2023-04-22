@@ -43,3 +43,10 @@ label {
         margin: 1rem auto 0rem auto;
     }
 }
+
+/*Index account*/
+@media (max-width: 514px) {
+    .btn-transferencia {
+        margin-top: .5rem;
+    }
+}

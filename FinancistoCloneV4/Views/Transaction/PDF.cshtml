@@ -16,7 +16,6 @@
         <table style="width:100%">
             <tr>
                 <td>
-                    @*<img src="" style="width: 250px;" />*@
                     <img src="~/files/acccount.png" style="width: 200px;" />
                 </td>
                 <td style="text-align:right">
@@ -50,6 +49,7 @@
                         </tr>
                         <tr>
                             <td style="padding-right: 3rem;"><p class="text">@transactions.FirstOrDefault().Account.TypeId</p></td>
+                            @*<td style="padding-right: 3rem;"><p class="text">@ViewBag.Account.Name</p></td>*@
                             @if (transactions.FirstOrDefault().Account.TypeId == 3)
                             {
                                 <td><p class="text">@string.Format("{0}{1:N2}","S/.",transactions.FirstOrDefault().Account.CreditLimit)</p></td>
